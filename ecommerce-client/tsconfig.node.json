@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "outDir": "./build",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "vite/client"
+    ]
+  },
+  "include": [
+    "vite.config.ts"
+  ]
+}
+// {
+//   "compilerOptions": {
+//     "baseUrl": ".",
+//     "composite": true,
+//     "skipLibCheck": true,
+//     "module": "ESNext",
+//     "outDir": "dist",
+//     "moduleResolution": "node",
+//     "allowSyntheticDefaultImports": true,
+//     "jsx": "react",
+//     "paths": {
+//       "~/shared/*": [
+//         "src/shared/*"
+//       ],
+//       "~/*": [
+//         "src/*"
+//       ]
+//     },
+//     "types": [
+//       "node"
+//     ]
+//   },
+//   "include": [
+//     "src/**/*"
+//   ]
+// }

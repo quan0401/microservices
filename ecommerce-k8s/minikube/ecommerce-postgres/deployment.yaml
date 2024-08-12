@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-postgres
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: ecommerce-postgres
+  template:
+    metadata:
+      labels:
+        app: ecommerce-postgres
+    spec:
+      terminationGracePeriodSeconds: 10 # wait for 10 seconds before killing the pod
+      containers:
+        - name: ecommerce-postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-postgres-password
+            - name: POSTGRES_DB
+              value: ecommerce_reviews
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "0.5"
+            requests:
+              memory: "150Mi"
+              cpu: "100m"
+          ports:
+            - name: e-postgres
+              containerPort: 5432
+          volumeMounts:
+            - name: postgres-local-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+          readinessProbe:
+            exec:
+              # prettier-ignore
+              command: ["psql", "-w", "-U", "ecommerce", "-d", "ecommerce_reviews", "-c", "SELECT 1"]
+            initialDelaySeconds: 120
+            periodSeconds: 300
+            timeoutSeconds: 60
+          livenessProbe:
+            exec:
+              # prettier-ignore
+              command: ["psql", "-w", "-U", "ecommerce", "-d", "ecommerce_reviews", "-c", "SELECT 1"]
+            initialDelaySeconds: 120
+            periodSeconds: 300
+            timeoutSeconds: 60
+      volumes:
+        - name: postgres-local-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc

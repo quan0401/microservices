@@ -1,0 +1,126 @@
+@baseUrl = http://localhost:4000
+@urlPath = api/gateway/v1
+
+###
+GET {{baseUrl}}/{{urlPath}}/order/notification/:userTo
+Accept: application/json
+withCredentials: true
+
+###
+
+GET {{baseUrl}}/{{urlPath}}/order/:orderId
+Accept: application/json
+withCredentials: true
+
+###
+
+GET {{baseUrl}}/{{urlPath}}/order/seller/:sellerId
+Accept: application/json
+withCredentials: true
+
+###
+
+GET {{baseUrl}}/{{urlPath}}/order/buyer/:buyerId
+Accept: application/json
+withCredentials: true
+
+###
+
+POST {{baseUrl}}/{{urlPath}}/order
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "offer": {
+    "gigTitle": "I will geez brr irrupt hmph where",
+    "price": 20,
+    "description": "Sample Description",
+    "deliveryInDays": 7,
+    "oldDeliveryDate": "2022-01-01",
+    "accepted": false,
+    "cancelled": false
+  },
+  "gigId": "6547ee735c323d4335dfcc39",
+  "sellerId": "665fe3f6d850042ac689c591",
+  "sellerUsername": "Oralbaumbach",
+  "sellerEmail": "oral_baumbach@yahoo.com",
+  "sellerImage": "https://fastly.picsum.photos/id/65/640/480.jpg?hmac=XTuLGIHxxrQnEBEaSDKoWToOmF-uQ-Q1PvnjQwTlk0s",
+  "gigCoverImage": "https://fastly.picsum.photos/id/199/640/480.jpg?hmac=uQJKaWEVEXwunjDisfw3QThY6MsZmkPECpe0jmS2pJc",
+  "gigMainTitle": "Sample Gig Main Title",
+  "gigBasicTitle": "Sample Gig Basic Title",
+  "gigBasicDescription": "Sample Gig Basic Description",
+  "buyerId": "sampleBuyerId",
+  "buyerUsername": "Quan0401",
+  "buyerEmail": "dongminhquan2004@gmail.com",
+  "buyerImage": "https://res.cloudinary.com/dg3fsapzu/image/upload/v1717560195/ecommerce/d89d502b-57a5-40d8-9f9a-1e030c93f04d.jpg",
+  "status": "sampleStatus",
+  "orderId": "sampleOrderId",
+  "invoiceId": "sampleInvoiceId",
+  "quantity": 1,
+  "price": 100,
+  "paymentIntent": "samplePaymentIntent"
+}
+
+###
+
+POST {{baseUrl}}/{{urlPath}}/order/create-payment-intent
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/order/cancel/:orderId
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/order/extension/:orderId
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/order/deliver-order/:orderId
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/order/approve-order/:orderId
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/order/gig/:type/:orderId
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+
+PUT {{baseUrl}}/{{urlPath}}/order/notification/mark-as-read
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "outDir": "./build/",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "~shared/*": [
+        "src/shared/*"
+      ],
+      "~features/*": [
+        "src/features/*"
+      ],
+      "~assets/*": [
+        "src/assets/*"
+      ],
+      "~/*": [
+        "src/*"
+      ],
+    }
+  }
+}

@@ -1,0 +1,12 @@
+FROM node:21-alpine3.18
+
+WORKDIR /app
+COPY package*.json ./
+COPY .npmrc ./
+COPY tsconfig.json ./
+RUN npm i && npm i -g nodemon
+COPY src ./src
+RUN ls -a
+EXPOSE 4001
+
+CMD [ "npm", "run", "dev" ]

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: e-elasticsearch
+  namespace: production
+spec:
+  type: ClusterIP
+  selector:
+    app: e-elasticsearch
+  ports:
+    - name: rest
+      protocol: TCP
+      port: 9200
+      targetPort: 9200
+    - name: inter-node
+      protocol: TCP
+      port: 9300
+      targetPort: 9300

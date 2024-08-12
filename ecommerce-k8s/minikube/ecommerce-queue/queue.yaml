@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-queue
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommerce-queue
+  template:
+    metadata:
+      labels:
+        app: ecommerce-queue
+    spec:
+      containers:
+        - name: ecommerce-queue
+          image: rabbitmq:3.13-rc-management-alpine
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-rabbitmq-user
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-rabbitmq-password
+              # so this pod doesn't starve the node which affects other pods
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "0.5"
+            requests:
+              memory: "150Mi"
+              cpu: "100m"
+          ports:
+            - name: queue
+              containerPort: 5672
+              protocol: TCP
+            - name: management
+              containerPort: 15672
+              protocol: TCP
+          volumeMounts:
+            - name: rabbitmq-local-storage
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: rabbitmq-local-storage
+          persistentVolumeClaim:
+            claimName: rabbitmq-pvc

@@ -1,0 +1,157 @@
+@baseUrl = http://localhost:4000
+@urlPath = api/gateway/v1
+
+# User routes
+###
+GET {{baseUrl}}/{{urlPath}}/buyer/email
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/buyer/username
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/buyer/quan0401
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/buyer/get/dongminhquan2004@gmail.com
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+# Seller routes
+###
+POST {{baseUrl}}/{{urlPath}}/seller/create
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "fullName": "Dong Minh Quan",
+  "profilePublicId": "a96a4ad7-3942-4a0d-89e6-4da7a4653329",
+  "profilePicture": "https://res.cloudinary.com/dg3fsapzu/image/upload/v1713964566/ecommerce/cce17a6c-96ec-4499-a1d5-46df05902a11.jpg",
+  "description": "Experienced freelancer specializing in web development.",
+  "country": "United States",
+  "oneliner": "Building great websites to meet your needs.",
+  "skills": ["JavaScript", "HTML", "CSS"],
+  "languages": [
+    { "language": "English", "level": "Fluent" },
+    { "language": "Spanish", "level": "Intermediate" }
+  ],
+  "responseTime": 24,
+  "experience": [
+    {
+      "company": "ABC Corp",
+      "title": "Senior Web Developer",
+      "startDate": "2018-01-01",
+      "endDate": "2022-12-31",
+      "description": "Led development teams on various projects.",
+      "currentlyWorkingHere": false
+    }
+  ],
+  "education": [
+    {
+      "country": "United States",
+      "university": "XYZ University",
+      "title": "Bachelor of Science in Computer Science",
+      "major": "Computer Science",
+      "year": "2014"
+    }
+  ]
+}
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/seller/id/6547ee1bbac1c154d43460ef
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/seller/email/dongminhquan2004@gmail.com
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/seller/username/John_doe123
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/seller/random/10
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/seller/66291e07a2be9e995e8b2215
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "fullName": "Dong Minh Quan",
+  "profilePublicId": "314fbdc4-557d-49be-b276-2bd82e1318ab",
+  "profilePicture": "https://avatars.githubusercontent.com/u/71364541",
+  "description": "Experienced freelancer specializing in web development.",
+  "country": "VN",
+  "oneliner": "Building great websites to meet your needs.",
+  "skills": ["JavaScript", "HTML", "CSS"],
+  "languages": [
+    { "language": "English", "level": "Fluent" },
+    { "language": "Spanish", "level": "Intermediate" }
+  ],
+  "responseTime": 24,
+  "experience": [
+    {
+      "company": "ABC Corp",
+      "title": "Senior Web Developer",
+      "startDate": "2018-01-01",
+      "endDate": "2022-12-31",
+      "description": "Led development teams on various projects.",
+      "currentlyWorkingHere": false
+    }
+  ],
+  "education": [
+    {
+      "country": "United States",
+      "university": "XYZ University",
+      "title": "Bachelor of Science in Computer Science",
+      "major": "Computer Science",
+      "year": "2014"
+    }
+  ]
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/seller/seed/10
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}

@@ -1,0 +1,94 @@
+@baseUrl = http://localhost:4000
+@urlPath = api/gateway/v1
+
+###
+POST {{baseUrl}}/{{urlPath}}/message
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "conversationId": "",
+  "_id": "",
+  "body": "",
+  "hasConversationId": false,
+  "file": "",
+  "fileType": "",
+  "fileName": "",
+  "fileSize": "",
+  "gigId": "",
+  "sellerId": "66515f96e3d2256e3ea85ec6",
+  "buyerId": "66534cb56af11e4fccc1be3e",
+  "senderUsername": "Quan0401",
+  "senderEmail": "dongminhquan2004@gmail.com",
+  "senderPicture": "https://res.cloudinary.com/dg3fsapzu/image/upload/v1716608549/ecommerce/e8d94c7e-5e18-4eba-a4f8-5aafdd57f3c7.jpg",
+  "receiverUsername": "Test",
+  "receiverEmail": "test@gmail.com",
+  "receiverPicture": "https://res.cloudinary.com/dg3fsapzu/image/upload/v1716735447/ecommerce/17096a12-09a5-41a4-b777-52dcd061abe9.jpg",
+  "isRead": "",
+  "hasOffer": "",
+  "offer": {
+    "gigTitle": "",
+    "price": "",
+    "description": "",
+    "deliveryInDays": "",
+    "oldDeliveryDate": "",
+    "newDeliveryDate": "",
+    "accepted": "",
+    "cancelled": "" 
+  },
+  "createdAt": ""
+}
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/message/6653fd997a148dd5c3eb2640
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+# get messages by conversationId: passed
+
+{}
+
+
+###
+GET {{baseUrl}}/{{urlPath}}/message/dongminhquan2004@gmail.com/test@gmail.com
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+# get messages between two users: passed
+
+{}
+
+###
+GET {{baseUrl}}/{{urlPath}}/message/conversations/dongminhquan2004@gmail.com
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+# get conversations of a user, return conversationList with the last messages: passed
+
+{}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/message/mark-as-read
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+# get conversations of a user, return conversationList with the last messages: passed
+
+{
+  "messageId": "6653fd997a148dd5c3eb2643"
+}
+
+###
+PUT {{baseUrl}}/{{urlPath}}/message/mark-multiple-as-read
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+# mark all messages as read
+
+{
+  "messageId": "6653fd997a148dd5c3eb2643", 
+  "senderEmail": "dongminhquan2004@gmail.com", 
+  "receiverEmail": "test@gmail.com"
+}

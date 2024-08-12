@@ -1,0 +1,75 @@
+# curl -u elastic:admin1234 "http://10.107.163.183:9200/_cluster/health?pretty=true": 10.107.163.183 is CluserIP
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e-elasticsearch
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: e-elasticsearch
+  minReadySeconds: 10
+  revisionHistoryLimit: 10 # default is 10
+  progressDeadlineSeconds: 300 # consider the deployment failed after 10 minutes
+  template:
+    metadata:
+      labels:
+        app: e-elasticsearch
+    spec:
+      terminationGracePeriodSeconds: 10 # wait for 10 seconds before killing the pod
+      initContainers:
+        - name: busybox
+          image: busybox
+          imagePullPolicy: Always
+          command:
+            ["sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data"]
+          volumeMounts:
+            - name: elasticsearch-local-storage
+              mountPath: /usr/share/elasticsearch/data
+      containers:
+        - name: e-elasticsearch
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+          imagePullPolicy: Always
+          env:
+            - name: ES_JAVA_OPTS
+              value: "-Xmx1g -Xms1g"
+            - name: bootstrap.memory_lock
+              value: "true"
+            - name: discovery.type
+              value: "single-node"
+            - name: network.host
+              value: "0.0.0.0"
+            - name: transport.host
+              value: "127.0.0.1"
+            - name: http.host
+              value: "0.0.0.0"
+            - name: xpack.security.enabled
+              value: "true"
+            - name: xpack.security.authc.api_key.enabled
+              value: "true"
+            - name: xpack.monitoring.collection.enabled
+              value: "true"
+            - name: xpack.security.enrollment.enabled
+              value: "true"
+            - name: xpack.security.authc.token.enabled
+              value: "true"
+            - name: ELASTIC_PASSWORD
+              value: "admin1234"
+          resources:
+            limits:
+              memory: "5Gi"
+              cpu: "1500m"
+            requests:
+              memory: "5Gi"
+              cpu: "250m"
+          ports:
+            - name: e-elasticsearch
+              containerPort: 9200
+          volumeMounts:
+            - name: elasticsearch-local-storage
+              mountPath: /usr/share/elasticsearch/data
+              subPath: data
+      volumes:
+        - name: elasticsearch-local-storage
+          persistentVolumeClaim:
+            claimName: elasticsearch-pvc

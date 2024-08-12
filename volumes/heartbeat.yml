@@ -1,0 +1,80 @@
+heartbeat.config.monitors:
+  path: ${path.config}/monitors.d/*.yml
+  reload.enabled: false
+  reload.period: 5s
+
+heartbeat.monitors:
+  - type: http
+    id: ecommerce-api-gateway
+    name: Ecommerce API Gateway Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4000/gateway-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-notification
+    name: Ecommerce Notification Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4001/notification-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-auth
+    name: Ecommerce Auth Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4002/auth-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-users
+    name: Ecommerce Users Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4003/user-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-gigs
+    name: Ecommerce Gigs Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4004/gig-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-chat
+    name: Ecommerce Chat Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4005/chat-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-orders
+    name: Ecommerce Orders Service
+    schedule: "@every 5s"
+    hosts: ["http://192.168.0.210:4006/order-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: ecommerce-reviews
+    name: Ecommerce Reviews Service
+    schedule: "@every 5s"
+    urls: ["http://192.168.0.210:4007/review-health"]
+    check.request.method: GET
+    check.response.status: [200]
+
+processors:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+
+monitoring.enabled: true
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch_container:9200"]
+  username: "elastic"
+  password: "admin1234"

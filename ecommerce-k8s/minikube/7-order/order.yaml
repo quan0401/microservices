@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e-order
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: e-order
+  strategy:
+    type: RollingUpdate # create new pod and then delete old pod
+    rollingUpdate:
+      maxSurge: 25% # for examples 5 pods, 25% of 5 is 1.25, so 5+1=6 pods
+      maxUnavailable: 25% # for examples 5 pods, 25% of 5 is 1.25, so 5-1=4 pods
+  template:
+    metadata:
+      labels:
+        app: e-order
+    spec:
+      containers:
+        - name: e-order
+          image: quan0401/ecommerce-order:latest
+          # TODO: change to Always later
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "0.5"
+            requests:
+              memory: "150Mi"
+              cpu: "100m"
+          ports:
+            - name: review
+              containerPort: 400
+          env:
+            - name: ENABLE_APM
+              value: "1"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: mongo-database-url
+            - name: GATEWAY_JWT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: gateway-jwt-token
+            - name: JWT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: jwt-token
+            - name: NODE_ENV
+              value: "production"
+            - name: API_GATEWAY_URL
+              value: "http://e-gateway.production.svc.cluster.local:3000"
+            - name: RABBITMQ_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-rabbitmq-endpoint
+            - name: CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: cloud-name
+            - name: CLOUD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: cloud-api-key
+            - name: CLOUD_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: cloud-api-secret
+            - name: CLOUD_FOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: cloud-folder
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-redis-host
+            - name: ELASTIC_SEARCH_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-elasticsearch-url
+            - name: ELASTIC_APM_SERVER_URL
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-elastic-apm-server-url
+            - name: ELASTIC_APM_SECRET_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-backend-secrets
+                  key: ecommerce-elastic-apm-secret-token

@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rabbitmq-local-storage
+provisioner: kubernetes.io/no-provisioner # k8s not manage this, we need to create PV manually
+volumeBindingMode: WaitForFirstConsumer # delays the binding until a Pod using the PVC is scheduled.
+allowVolumeExpansion: true # allow volume expansion
+reclaimPolicy: Delete # delete the volume when the PVC is deleted

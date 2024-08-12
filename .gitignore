@@ -1,0 +1,4 @@
+volumes/docker-volumes/
+**/.npmrc
+**/secrets.md
+**/.git
